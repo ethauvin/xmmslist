@@ -66,6 +66,8 @@ if len(sys.argv) > 1:
 	if m:
 		
 		try:
+			if (os.path.getsize(playlist) == 0):
+				time.sleep(1)
 			f = open(playlist, 'r')
 			lines = f.readlines()
 			f.close()
@@ -98,20 +100,21 @@ if len(sys.argv) > 1:
 	
 		song += '</tr>\n'
 
-		f = open(playlist, 'w')
-		f.write(song)
-		
+		plist = song
+
 		stop = len(lines) - 1
 		if stop > 0:
 			i = 1
 			for line in lines:
 				if song != line:
-					f.write(line)
+					plist += line
 				i += 1
 				if i >= maxsongs or i > stop:
 					break
 					
 		# Last Update
-		f.write('<tr><td colspan="3" valign="bottom" align="left"><br><br><small>' + time.strftime('Updated on %B %d, %Y at %H:%M %Z') + '</small></td><td colspan="2" valign="bottom" align="right"><small><a href="http://www.thauvin.net/blog/stories.jsp?id=5#xmmslist" class="small" target="_blank">' + os.path.basename(sys.argv[0]) + '</a> ' + version + '</small></td></tr>\n')
+		plist += ('<tr><td colspan="3" valign="bottom" align="left"><br><br><small>' + time.strftime('Updated on %B %d, %Y at %H:%M %Z') + '</small></td><td colspan="2" valign="bottom" align="right"><small><a href="http://www.thauvin.net/blog/stories.jsp?id=5#xmmslist" class="small" target="_blank">' + os.path.basename(sys.argv[0]) + '</a> ' + version + '</small></td></tr>\n')
 	
+		f = open(playlist, 'w')
+		f.write(plist)
 		f.close()
