@@ -54,7 +54,7 @@ songsearch='http://www.lyricsstation.com/search.asp?R1=V1&amp;txtSearch='
 bandtip='Search for this artist on Google.'
 bandsearch='"http://www.google.com/search?cat=gwd%2FTop%2FArts%2FMusic&amp;q='
 
-# The album search tooltip URL
+# The album search tooltip and URL
 albumtip='Search for this album on freedb.'
 albumsearch='http://www.freedb.org/freedb_search.php?allfields=NO&amp;fields=artist&amp;fields=title&amp;allcats=YES&amp;grouping=cats&amp;words='
 
@@ -72,11 +72,11 @@ if len(sys.argv) > 1:
 		except IOError:
 			lines = ''
 
-		song = ''
+		song = '<tr valign="top">'
 
 		# Song
 		if len(m.group(2)) >= 1:
-			song += '<tr valign="top"><td><a title="' + songtip + '" href="' + songsearch + urllib.quote_plus(m.group(2)) + '" target="_blank">' + cgi.escape(m.group(2)) + '</a></td>'
+			song += '<td><a title="' + songtip + '" href="' + songsearch + urllib.quote_plus(m.group(2)) + '" target="_blank">' + cgi.escape(m.group(2)) + '</a></td>'
 		else:
 			song += '<td><font color="gray">n/a</font></td>'
 	
@@ -92,7 +92,7 @@ if len(sys.argv) > 1:
 		
 		# Album
 		if len(m.group(3)) >= 1:
-			song += '<td><a title="'+ albumtip + '" href="' + albumsearch + urllib.quote_plus((m.group(1) + ' ' + m.group(3)).replace('(', '').replace(')', '')) + '" target="_blank">' + cgi.escape(m.group(3)) + '</a></td>'
+			song += '<td><a title="'+ albumtip + '" href="' + albumsearch + urllib.quote_plus((m.group(1) + ' ' + m.group(3)).replace('(', '').replace(')', '').replace('.', '')) + '" target="_blank">' + cgi.escape(m.group(3)) + '</a></td>'
 		else:
 			song += '<td><font color="gray">n/a</font></td>'
 	
