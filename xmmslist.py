@@ -53,7 +53,7 @@ songsearch='http://www.lyricsstation.com/search.asp?R1=V1&amp;txtSearch='
 bandsearch='"http://www.google.com/search?cat=gwd%2FTop%2FArts%2FMusic&amp;q='
 
 # The album search URL
-albumsearch='http://www.cduniverse.com/sresult.asp?HT_Search=TITLE&amp;HT_Search_Info='
+albumsearch='http://www.freedb.org/freedb_search.php?allfields=NO&amp;fields=artist&amp;fields=title&amp;allcats=YES&amp;grouping=cats&amp;words='
 
 
 if len(sys.argv) > 1:
@@ -89,7 +89,7 @@ if len(sys.argv) > 1:
 		
 		# Album
 		if len(m.group(3)) >= 1:
-			song += '<td><a href="' + albumsearch + urllib.quote_plus(m.group(3)) + '" target="_blank">' + cgi.escape(m.group(3)) + '</a></td>'
+			song += '<td><a href="' + albumsearch + urllib.quote_plus(m.group(1) + ' ' + m.group(3)) + '" target="_blank">' + cgi.escape(m.group(3)) + '</a></td>'
 		else:
 			song += '<td><font color="gray">n/a</font></td>'
 	
