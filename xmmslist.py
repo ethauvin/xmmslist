@@ -46,13 +46,16 @@ playlist=os.path.expanduser('~/bin/playlist.txt')
 # The maximum number of songs to keep in the playlist
 maxsongs=20
 
-# The song search URL
+# The song search tooltip and URL
+songtip='Search for the lyrics of this song.'
 songsearch='http://www.lyricsstation.com/search.asp?R1=V1&amp;txtSearch='
 
-# The artist search URL
+# The artist search tooltip and URL
+bandtip='Search for this artist on Google.'
 bandsearch='"http://www.google.com/search?cat=gwd%2FTop%2FArts%2FMusic&amp;q='
 
-# The album search URL
+# The album search tooltip URL
+albumtip='Search for this album on freedb.'
 albumsearch='http://www.freedb.org/freedb_search.php?allfields=NO&amp;fields=artist&amp;fields=title&amp;allcats=YES&amp;grouping=cats&amp;words='
 
 
@@ -73,7 +76,7 @@ if len(sys.argv) > 1:
 
 		# Song
 		if len(m.group(2)) >= 1:
-			song += '<tr valign="top"><td><a href="' + songsearch + urllib.quote_plus(m.group(2)) + '" target="_blank">' + cgi.escape(m.group(2)) + '</a></td>'
+			song += '<tr valign="top"><td><a title="' + songtip + '" href="' + songsearch + urllib.quote_plus(m.group(2)) + '" target="_blank">' + cgi.escape(m.group(2)) + '</a></td>'
 		else:
 			song += '<td><font color="gray">n/a</font></td>'
 	
@@ -81,7 +84,7 @@ if len(sys.argv) > 1:
 		
 		# Artist
 		if len(m.group(1)) >= 1:
-			song += '<td><a href=' + bandsearch + urllib.quote_plus('"' + m.group(1) + '"') + '" target="_blank">' + cgi.escape(m.group(1)) + '</a></td>'
+			song += '<td><a title="' + bandtip + '" href=' + bandsearch + urllib.quote_plus('"' + m.group(1) + '"') + '" target="_blank">' + cgi.escape(m.group(1)) + '</a></td>'
 		else:
 			song += '<td><font color="gray">n/a</font></td>'
 		
@@ -89,7 +92,7 @@ if len(sys.argv) > 1:
 		
 		# Album
 		if len(m.group(3)) >= 1:
-			song += '<td><a href="' + albumsearch + urllib.quote_plus(m.group(1) + ' ' + m.group(3)) + '" target="_blank">' + cgi.escape(m.group(3)) + '</a></td>'
+			song += '<td><a title="'+ albumtip + '" href="' + albumsearch + urllib.quote_plus((m.group(1) + ' ' + m.group(3)).replace('(', '').replace(')', '')) + '" target="_blank">' + cgi.escape(m.group(3)) + '</a></td>'
 		else:
 			song += '<td><font color="gray">n/a</font></td>'
 	
